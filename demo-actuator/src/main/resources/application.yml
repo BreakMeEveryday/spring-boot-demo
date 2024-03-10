@@ -1,13 +1,18 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /demo
+
+# Spring Boot Actuator(基于SpringBoot) https://blog.csdn.net/maogenb/article/details/124555956
+#
+
 # 若要访问端点信息，需要配置用户名和密码
 spring:
   security:
     user:
       name: xkcoding
       password: 123456
+
 management:
   # 端点信息接口使用的端口，为了和主系统接口使用的端口进行分离
   server:
@@ -18,6 +23,8 @@ management:
   endpoint:
     health:
       show-details: always
+    shutdown: # 允许用户关闭Spring Boot
+      enabled: true
   # 设置端点暴露的哪些内容，默认["health","info"]，设置"*"代表暴露所有可访问的端点
   endpoints:
     web:
