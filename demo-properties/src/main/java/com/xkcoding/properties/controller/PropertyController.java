@@ -20,6 +20,9 @@ public class PropertyController {
     private final ApplicationProperty applicationProperty;
     private final DeveloperProperty developerProperty;
 
+    // 不推荐直接在字段上注入，而是通过构造器注入
+    // (1)https://blog.csdn.net/xc_nostalgia/article/details/109668659
+    // (2)https://cloud.tencent.com/developer/article/2020788
     @Autowired
     public PropertyController(ApplicationProperty applicationProperty, DeveloperProperty developerProperty) {
         this.applicationProperty = applicationProperty;
