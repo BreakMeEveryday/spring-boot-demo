@@ -67,7 +67,7 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(fill = INSERT)
+    @TableField(fill = INSERT) // 当Insert时会被自动填充
     private Date createTime;
 
     /**
@@ -78,6 +78,6 @@ public class User implements Serializable {
     /**
      * 上次更新时间
      */
-    @TableField(fill = INSERT_UPDATE)
+    @TableField(fill = INSERT_UPDATE) // 当Insert或Update时会被自动填充
     private Date lastUpdateTime;
 }

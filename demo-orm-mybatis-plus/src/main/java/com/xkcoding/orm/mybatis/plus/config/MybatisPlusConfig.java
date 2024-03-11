@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @MapperScan(basePackages = {"com.xkcoding.orm.mybatis.plus.mapper"})
-@EnableTransactionManagement
+@EnableTransactionManagement //允许事务
 public class MybatisPlusConfig {
     /**
      * 性能分析拦截器，不建议生产使用

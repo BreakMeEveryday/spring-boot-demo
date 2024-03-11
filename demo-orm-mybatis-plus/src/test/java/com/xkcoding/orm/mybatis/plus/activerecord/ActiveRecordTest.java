@@ -26,8 +26,8 @@ public class ActiveRecordTest extends SpringBootDemoOrmMybatisPlusApplicationTes
     @Test
     public void testActiveRecordInsert() {
         Role role = new Role();
-        role.setName("VIP");
-        Assert.assertTrue(role.insert());
+        role.setName("VIP2");
+        Assert.assertTrue(role.insert()); //直接调用自身的insert方法，把自己的数据插入到数据库中
         // 成功直接拿会写的 ID
         log.debug("【role】= {}", role);
     }
@@ -49,6 +49,7 @@ public class ActiveRecordTest extends SpringBootDemoOrmMybatisPlusApplicationTes
         Assert.assertEquals("管理员", new Role().setId(1L).selectById().getName());
         Role role = new Role().selectOne(new QueryWrapper<Role>().lambda().eq(Role::getId, 2));
         Assert.assertEquals("普通用户", role.getName());
+
         List<Role> roles = new Role().selectAll();
         Assert.assertTrue(roles.size() > 0);
         log.debug("【roles】= {}", roles);

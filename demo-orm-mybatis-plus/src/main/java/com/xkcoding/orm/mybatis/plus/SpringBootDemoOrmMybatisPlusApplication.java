@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author yangkai.shen
  * @date Created in 2018-11-08 16:48
+ *
+ * 启动如果报Shutdown completed，看 https://blog.csdn.net/VABTC/article/details/112008583
  */
 @SpringBootApplication
 public class SpringBootDemoOrmMybatisPlusApplication {
