@@ -20,7 +20,7 @@ public class SpringBootDemoLogbackApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootDemoLogbackApplication.class, args);
         int length = context.getBeanDefinitionNames().length;
-        log.trace("Spring boot启动初始化了 {} 个 Bean", length);
+        log.trace("Spring boot启动初始化了 {} 个 Bean", length); //log变量在class文件中存在，请看对应的class字节码文件
         log.debug("Spring boot启动初始化了 {} 个 Bean", length);
         log.info("Spring boot启动初始化了 {} 个 Bean", length);
         log.warn("Spring boot启动初始化了 {} 个 Bean", length);
