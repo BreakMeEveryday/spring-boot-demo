@@ -16,5 +16,6 @@ public class SpringBootDemoAdminClientApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootDemoAdminClientApplication.class, args);
+      System.out.println("请访问服务端查看Client的情况：http://localhost:8000/");
     }
 }
