@@ -135,6 +135,7 @@ public class UserMapperTest extends SpringBootDemoOrmMybatisMapperPageApplicatio
         initData();
         Example example = new Example(User.class);
         // 过滤
+        // Example对象是一个用于构建查询条件的工具类，它可以通过设置Criteria(条件)对象来指定查询条件，例如设置等于、大于、小于等条件
         example.createCriteria().andLike("name", "%Save1%").orEqualTo("phoneNumber", "17300000001");
         // 排序
         example.setOrderByClause("id desc");
