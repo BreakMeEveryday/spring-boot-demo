@@ -26,9 +26,10 @@ public class UserController {
     public ModelAndView login(User user, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
 
-        mv.addObject(user);
+//        mv.addObject(user); // 这句似乎没必要存在?
         mv.setViewName("redirect:/");
 
+        // 实际的业务逻辑在重定向后，由IndexController去处理，这里只需要保存user信息即可
         request.getSession().setAttribute("user", user);
         return mv;
     }

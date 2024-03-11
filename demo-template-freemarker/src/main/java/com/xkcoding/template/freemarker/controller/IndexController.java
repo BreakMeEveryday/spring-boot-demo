@@ -21,6 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class IndexController {
 
+    /*
+    * 第一个值"" ： 表示空字符串，表示该注解可以匹配任何请求路径，包括根路径（/)。
+    * 第二个值"/"： 表示斜杠字符，表示该注解可以匹配根路径（/)。
+    * */
     @GetMapping(value = {"", "/"})
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
@@ -29,7 +33,7 @@ public class IndexController {
         if (ObjectUtil.isNull(user)) {
             mv.setViewName("redirect:/user/login");
         } else {
-            mv.setViewName("page/index");
+            mv.setViewName("page/index"); // user非空可以跳转首页
             mv.addObject(user);
         }
 
