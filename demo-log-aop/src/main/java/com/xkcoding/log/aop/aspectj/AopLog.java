@@ -35,7 +35,7 @@ import java.util.Objects;
  * @author chen qi
  * @date Created in 2018-10-01 22:05
  */
-@Aspect
+@Aspect // 切面
 @Component
 @Slf4j
 public class AopLog {
@@ -63,7 +63,7 @@ public class AopLog {
 
         // 打印请求相关参数
         long startTime = System.currentTimeMillis();
-        Object result = point.proceed();
+        Object result = point.proceed(); // 执行切入点的方法，获得返回结果
         String header = request.getHeader("User-Agent");
         UserAgent userAgent = UserAgent.parseUserAgentString(header);
 
@@ -80,7 +80,7 @@ public class AopLog {
             .timeCost(System.currentTimeMillis() - startTime)
             .userAgent(header)
             .browser(userAgent.getBrowser().toString())
-            .os(userAgent.getOperatingSystem().toString()).build();
+            .os(userAgent.getOperatingSystem().toString()).build(); // 调用链条为：Log.builder(). **** .build();
 
         log.info("Request Log Info : {}", JSONUtil.toJsonStr(l));
 
@@ -146,7 +146,7 @@ public class AopLog {
     }
 
     @Data
-    @Builder
+    @Builder //在字节码中，可以看到生成了builder()与build()方法
     @NoArgsConstructor
     @AllArgsConstructor
     static class Log {
