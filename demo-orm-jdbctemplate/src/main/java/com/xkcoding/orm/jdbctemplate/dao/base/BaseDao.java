@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  * @date Created in 2018-10-15 11:28
  */
 @Slf4j
-public class BaseDao<T, P> {
+public class BaseDao<T, P> { // T是实体类，P是主键类型
     private JdbcTemplate jdbcTemplate;
     private Class<T> clazz;
 
@@ -69,7 +69,7 @@ public class BaseDao<T, P> {
         String sql = StrUtil.format("INSERT INTO {table} ({columns}) VALUES ({params})", Dict.create().set("table", table).set("columns", columns).set("params", params));
         log.debug("【执行SQL】SQL：{}", sql);
         log.debug("【执行SQL】参数：{}", JSONUtil.toJsonStr(values));
-        return jdbcTemplate.update(sql, values);
+        return jdbcTemplate.update(sql, values); //预编译sql，实际的values，这里没有用mybatis。
     }
 
     /**
@@ -221,7 +221,18 @@ public class BaseDao<T, P> {
 
         // 过滤数据库中不存在的字段，以及自增列
         List<Field> filterField;
-        Stream<Field> fieldStream = CollUtil.toList(fields).stream().filter(field -> ObjectUtil.isNull(field.getAnnotation(Ignore.class)) || ObjectUtil.isNull(field.getAnnotation(Pk.class)));
+//        Stream<Field> fieldStream = CollUtil.toList(fields).stream().filter(field -> ObjectUtil.isNull(field.getAnnotation(Ignore.class)) || ObjectUtil.isNull(field.getAnnotation(Pk.class)));
+        // 这里的Ignore如何生效？在post请求里会生效，这样sql就不会把ignore字段拼接进去, 但实际上这里开发的是有问题的
+        Stream<Field> fieldStream = CollUtil.toList(fields).stream().filter(field ->{
+            if (ObjectUtil.isNotNull(field.getAnnotation(Ignore.class))){
+              return false;
+            }else if (ObjectUtil.isNotNull(field.getAnnotation(Pk.class))){ //或许应该这么做，insert的时候不要插入主键，查询的时候要查询出主键？
+              return false;
+            }else{
+              return true;
+            }
+          }
+        );
 
         // 是否过滤字段值为null的字段
         if (ignoreNull) {

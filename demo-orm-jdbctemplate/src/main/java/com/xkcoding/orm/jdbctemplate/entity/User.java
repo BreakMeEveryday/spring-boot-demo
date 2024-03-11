@@ -1,6 +1,7 @@
 package com.xkcoding.orm.jdbctemplate.entity;
 
 import com.xkcoding.orm.jdbctemplate.annotation.Column;
+import com.xkcoding.orm.jdbctemplate.annotation.Ignore;
 import com.xkcoding.orm.jdbctemplate.annotation.Pk;
 import com.xkcoding.orm.jdbctemplate.annotation.Table;
 import lombok.Data;
@@ -73,4 +74,7 @@ public class User implements Serializable {
      */
     @Column(name = "last_update_time")
     private Date lastUpdateTime;
+
+    @Ignore // 数据库中实际不存在此字段，insert时不需要将此字段插入数据库
+    private String ignore;
 }

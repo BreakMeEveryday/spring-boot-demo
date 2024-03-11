@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /demo
 spring:
@@ -11,7 +11,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     initialization-mode: always
     continue-on-error: true
-    schema:
+    schema: # 建库和建表语句直接放在这里，项目启动后就自己执行了
     - "classpath:db/schema.sql"
     data:
     - "classpath:db/data.sql"

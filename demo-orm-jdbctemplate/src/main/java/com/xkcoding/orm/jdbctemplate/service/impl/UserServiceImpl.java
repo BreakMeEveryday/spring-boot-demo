@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     public Boolean save(User user) {
         String rawPass = user.getPassword();
         String salt = IdUtil.simpleUUID();
-        String pass = SecureUtil.md5(rawPass + Const.SALT_PREFIX + salt);
+        String pass = SecureUtil.md5(rawPass + Const.SALT_PREFIX + salt); // 加盐加密，这样即便是程序员也没办法破解密码，md5只能构造出碰撞，但是不能反向解密出来
         user.setPassword(pass);
         user.setSalt(salt);
         return userDao.insert(user) > 0;
@@ -76,7 +76,7 @@ public class UserServiceImpl implements IUserService {
             user.setPassword(pass);
             user.setSalt(salt);
         }
-        BeanUtil.copyProperties(user, exist, CopyOptions.create().setIgnoreNullValue(true));
+        BeanUtil.copyProperties(user, exist, CopyOptions.create().setIgnoreNullValue(true)); // user 的值更新到 --> exist中
         exist.setLastUpdateTime(new DateTime());
         return userDao.update(exist, id) > 0;
     }
