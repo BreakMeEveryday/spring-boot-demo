@@ -21,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestController {
 
     @GetMapping("/json")
-    @ResponseBody
-    public ApiResponse jsonException() {
+    @ResponseBody //有@RequestBody，也有@ResponseBody
+    public ApiResponse jsonException() { // 按照正常逻辑，要返回一个ApiResponse类，但是这里手动抛出了一个JsonException异常
         throw new JsonException(Status.UNKNOWN_ERROR);
     }
 
-    @GetMapping("/page")
+    @GetMapping("/page") // 对于Spring MVC就没有ResponseBody了，而是一个页面
     public ModelAndView pageException() {
         throw new PageException(Status.UNKNOWN_ERROR);
     }
