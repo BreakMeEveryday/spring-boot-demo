@@ -20,8 +20,8 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * @date Created in 2018-11-22 19:02
  */
 @Configuration
-@EnableScheduling
-@ComponentScan(basePackages = {"com.xkcoding.task.job"})
+@EnableScheduling //允许定时调度
+@ComponentScan(basePackages = {"com.xkcoding.task.job"}) //定时调度任务包的位置
 public class TaskConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {

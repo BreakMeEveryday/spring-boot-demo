@@ -38,6 +38,7 @@ public class JobController {
 
     /**
      * 保存定时任务
+     * 需要定时任务的全限定类名 com.xkcoding.task.quartz.job.HelloJob  定时调度的表达式为 *\/5 * * * * ?
      */
     @PostMapping
     public ResponseEntity<ApiResponse> addJob(@Valid JobForm form) {
