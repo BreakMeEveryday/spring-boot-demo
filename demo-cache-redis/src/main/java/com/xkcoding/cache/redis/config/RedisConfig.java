@@ -26,8 +26,8 @@ import java.io.Serializable;
  * @date Created in 2018-11-15 16:41
  */
 @Configuration
-@AutoConfigureAfter(RedisAutoConfiguration.class)
-@EnableCaching
+@AutoConfigureAfter(RedisAutoConfiguration.class) //指定配置类的加载顺序，在RedisAutoConfiguration之后执行，为了确保与Redis相关的自动配置完成后再进行后续相关组件的配置，以维护Spring容器内Bean之间依赖关系的正确性
+@EnableCaching // 自动配置CacheManager：根据项目依赖和配置，Spring Boot可以自动配置合适的CacheManager实现，如当项目中包含对Redis的支持时，会自动配置RedisCacheManager。
 public class RedisConfig {
 
     /**
@@ -49,7 +49,8 @@ public class RedisConfig {
     public CacheManager cacheManager(RedisConnectionFactory factory) {
         // 配置序列化
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
-        RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+        RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())) //key以String形式存储在redis中
+                                                                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())); // 对象以JSON格式字符串存储在Redis中
 
         return RedisCacheManager.builder(factory).cacheDefaults(redisCacheConfiguration).build();
     }

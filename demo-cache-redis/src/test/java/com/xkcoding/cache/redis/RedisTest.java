@@ -44,7 +44,7 @@ public class RedisTest extends SpringBootDemoCacheRedisApplicationTests {
 
         // 以下演示整合，具体Redis命令可以参考官方文档
         String key = "xkcoding:user:1";
-        redisCacheTemplate.opsForValue().set(key, new User(1L, "user1"));
+        redisCacheTemplate.opsForValue().set(key, new User(1L, "user1")); //redis中实际的存储格式为 {"@class":"com.xkcoding.cache.redis.entity.User","id":1,"name":"user1"}
         // 对应 String（字符串）
         User user = (User) redisCacheTemplate.opsForValue().get(key);
         log.debug("【user】= {}", user);
