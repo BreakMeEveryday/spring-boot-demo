@@ -32,7 +32,7 @@ import javax.servlet.Servlet;
 @ConditionalOnClass({Servlet.class, StandardServletMultipartResolver.class, MultipartConfigElement.class})
 @ConditionalOnProperty(prefix = "spring.http.multipart", name = "enabled", matchIfMissing = true)
 @EnableConfigurationProperties(MultipartProperties.class)
-public class UploadConfig {
+public class UploadConfig { // 这个类用来提供各种七牛云的Bean
     @Value("${qiniu.accessKey}")
     private String accessKey;
 

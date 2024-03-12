@@ -84,7 +84,7 @@ public class UploadController {
                 String yunFileName = jsonObject.getStr("key");
                 String yunFilePath = StrUtil.appendIfMissing(prefix, "/") + yunFileName;
 
-                FileUtil.del(new File(localFilePath));
+                FileUtil.del(new File(localFilePath)); // 先上传到本地，再上传到云，然后再把本地的文件删除，任何一个操作都有成败两种可能性，需要做if-else判断或try-catch捕获，这种编程思维应该牢记于心
 
                 log.info("【文件上传至七牛云】绝对路径：{}", yunFilePath);
                 return Dict.create().set("code", 200).set("message", "上传成功").set("data", Dict.create().set("fileName", yunFileName).set("filePath", yunFilePath));
