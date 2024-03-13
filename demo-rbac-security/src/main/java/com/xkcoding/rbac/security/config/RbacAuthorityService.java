@@ -32,6 +32,10 @@ import java.util.stream.Collectors;
  * <p>
  * 动态路由认证
  * </p>
+ * <p>
+ * 校验请求的合法性，排除404和405这两种异常请求
+ * 根据当前请求路径与该用户可访问的资源做匹配，通过则可以访问，否则，不允许访问
+ * </p>
  *
  * @author yangkai.shen
  * @date Created in 2018-12-10 17:17

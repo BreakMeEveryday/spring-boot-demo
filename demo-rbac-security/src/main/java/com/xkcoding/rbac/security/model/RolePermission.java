@@ -22,6 +22,6 @@ public class RolePermission {
     /**
      * 主键
      */
-    @EmbeddedId
+    @EmbeddedId // 表示该属性是一个复合主键，并且其类型是之前定义过的 @Embeddable 类型。
     private RolePermissionKey id;
 }

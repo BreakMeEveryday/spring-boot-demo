@@ -153,7 +153,7 @@ public class JwtUtil {
      */
     public String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StrUtil.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if (StrUtil.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) { // 这里似乎需要改进下，改为JwtResponse.tokenType，不能在代码里写死
             return bearerToken.substring(7);
         }
         return null;

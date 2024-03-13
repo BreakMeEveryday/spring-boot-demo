@@ -21,6 +21,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * <p>
  * Security 配置
  * </p>
+ * <p>
+ * 主要功能：配置哪些URL不需要认证，哪些需要认证
+ * </p>
  *
  * @author yangkai.shen
  * @date Created in 2018-12-07 16:46

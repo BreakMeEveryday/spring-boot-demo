@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
  * <p>
  * 登录请求参数
  * </p>
+ * <p>
+ * 请求参数放在payload包下
+ * </p>
  *
  * @author yangkai.shen
  * @date Created in 2018-12-10 15:52

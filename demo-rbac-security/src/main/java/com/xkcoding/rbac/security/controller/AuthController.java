@@ -34,7 +34,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager; // 实际运行时是WebSecurityConfigurerAdapter类
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -44,11 +44,13 @@ public class AuthController {
      */
     @PostMapping("/login")
     public ApiResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+        // 用usernameOrEmailOrPhone与password鉴权
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmailOrPhone(), loginRequest.getPassword()));
-
+        // 设置Security上下文的鉴权信息
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtil.createJWT(authentication, loginRequest.getRememberMe());
+        // 返回JWT作为前端的Token
+        String jwt = jwtUtil.createJWT(authentication, loginRequest.getRememberMe()); // 在createJWT的方法里，会直接保存至redis中
         return ApiResponse.ofSuccess(new JwtResponse(jwt));
     }
 
@@ -56,7 +58,7 @@ public class AuthController {
     public ApiResponse logout(HttpServletRequest request) {
         try {
             // 设置JWT过期
-            jwtUtil.invalidateJWT(request);
+            jwtUtil.invalidateJWT(request); // 注意，设置JWT过期也可能失败抛异常
         } catch (SecurityException e) {
             throw new SecurityException(Status.UNAUTHORIZED);
         }

@@ -37,7 +37,8 @@ public class MonitorController {
      * @param pageCondition 分页参数
      */
     @GetMapping("/online/user")
-    public ApiResponse onlineUser(PageCondition pageCondition) {
+//    public ApiResponse onlineUser(PageCondition pageCondition) {
+    public ApiResponse onlineUser(@RequestBody PageCondition pageCondition) {
         PageUtil.checkPageCondition(pageCondition, PageCondition.class);
         PageResult<OnlineUser> pageResult = monitorService.onlineUser(pageCondition);
         return ApiResponse.ofSuccess(pageResult);
@@ -53,7 +54,7 @@ public class MonitorController {
         if (CollUtil.isEmpty(names)) {
             throw new SecurityException(Status.PARAM_NOT_NULL);
         }
-        if (names.contains(SecurityUtil.getCurrentUsername())) {
+        if (names.contains(SecurityUtil.getCurrentUsername())) { // 不能手动踢出自己，管理员可以踢出普通用户，管理员自己除外
             throw new SecurityException(Status.KICKOUT_SELF);
         }
         monitorService.kickout(names);

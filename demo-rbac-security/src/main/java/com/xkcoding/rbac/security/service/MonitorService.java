@@ -69,7 +69,7 @@ public class MonitorService {
 
         // 获取当前用户名
         String currentUsername = SecurityUtil.getCurrentUsername();
-        names.parallelStream().forEach(name -> {
+        names.parallelStream().forEach(name -> { // parallelStream的作用，将一个普通流转换成并行流，可以利用多核 CPU 来加速数据处理，从而提高程序的性能。
             // TODO: 通知被踢出的用户已被当前登录用户踢出，
             //  后期考虑使用 websocket 实现，具体伪代码实现如下。
             //  String message = "您已被用户【" + currentUsername + "】手动下线！";

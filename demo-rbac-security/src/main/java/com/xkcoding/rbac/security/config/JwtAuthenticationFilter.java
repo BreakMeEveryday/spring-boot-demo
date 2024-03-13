@@ -35,7 +35,7 @@ import java.util.Set;
  * @author yangkai.shen
  * @date Created in 2018-12-10 15:15
  */
-@Component
+@Component // 1.是一个过滤器。2.是一个Spring管理的Bean。所以每次请求前会先由Security框架进行一次Filter的过滤与调用
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
@@ -66,7 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                filterChain.doFilter(request, response);
+                filterChain.doFilter(request, response); // 权限不足的过滤行为，从这里开始，交给Spring Security框架处理
             } catch (SecurityException e) {
                 ResponseUtil.renderJson(response, e);
             }

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPrincipal implements UserDetails {
+public class UserPrincipal implements UserDetails { // 从属性上来说，比User多了roles列表与authorities列表
     /**
      * 主键
      */
@@ -43,7 +43,7 @@ public class UserPrincipal implements UserDetails {
     /**
      * 密码
      */
-    @JsonIgnore
+    @JsonIgnore // 指示JSON序列化器在序列化Person对象时忽略password属性。
     private String password;
 
     /**
@@ -97,7 +97,7 @@ public class UserPrincipal implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserPrincipal create(User user, List<Role> roles, List<Permission> permissions) {
-        List<String> roleNames = roles.stream().map(Role::getName).collect(Collectors.toList());
+        List<String> roleNames = roles.stream().map(Role::getName).collect(Collectors.toList()); //map接收的是一个Function，collect接收的是一个Collector类
 
         List<GrantedAuthority> authorities = permissions.stream().filter(permission -> StrUtil.isNotBlank(permission.getPermission())).map(permission -> new SimpleGrantedAuthority(permission.getPermission())).collect(Collectors.toList());
 

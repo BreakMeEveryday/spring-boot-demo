@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @date Created in 2018-12-10 13:47
  */
 @Data
-@Embeddable
+@Embeddable // 表示该类是一个可嵌入的实体（Embeddable Entity），即它可以作为另一个实体的一部分，作为一个复合主键或者普通字段存在。
 public class RolePermissionKey implements Serializable {
     private static final long serialVersionUID = 6850974328279713855L;
 
