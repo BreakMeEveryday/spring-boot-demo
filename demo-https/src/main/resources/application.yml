@@ -1,11 +1,18 @@
 server:
+  # 浏览器默认端口 和 80 类似
+  #  port: 443
+  port: 8082
+  servlet:
+    context-path: /demo
   ssl:
     # 证书路径
     key-store: classpath:server.keystore
-    key-alias: tomcat
+    key-alias: tomcat # 设置密钥别名（Key Alias），即在密钥库中特定证书和 私钥 条目的标识符
     enabled: true
-    key-store-type: JKS
+    key-store-type: JKS # 指定密钥库的类型为JKS (Java KeyStore)，这是Java默认的密钥存储格式。也可以是PKCS12等其他格式。
     #与申请时输入一致
-    key-store-password: 123456
-    # 浏览器默认端口 和 80 类似
-  port: 443
+    key-store-password: 123456 # 设置访问密钥库所需的密码，这个密码是在创建或导入证书到密钥库时设置的
+
+# 如果黑客同时获得了server.keystore文件和对应的key-store-password，
+# 理论上他们可以访问到存储在密钥库中的私钥和其他相关证书。JKS（Java KeyStore）类型的密钥库通常包含了加密后的私钥和公钥证书信息。
+# 他们仍然可以执行一些恶意操作，如中间人攻击，因此保护好密钥库文件和访问密码是非常重要的。
