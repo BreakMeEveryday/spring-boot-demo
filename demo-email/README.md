@@ -1,6 +1,7 @@
 # spring-boot-demo-email
 
 > 此 demo 主要演示了 Spring Boot 如何整合邮件功能，包括发送简单文本邮件、HTML邮件（包括模板HTML邮件）、附件邮件、静态资源邮件。
+> 这个email的项目写的不是很好，跑不起来，需要自己完善
 
 ## pom.xml
 

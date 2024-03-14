@@ -33,7 +33,7 @@ public class MailServiceTest extends SpringBootDemoEmailApplicationTests {
      */
     @Test
     public void sendSimpleMail() {
-        mailService.sendSimpleMail("237497819@qq.com", "这是一封简单邮件", "这是一封普通的SpringBoot测试邮件");
+        mailService.sendSimpleMail("710564798@qq.com", "这是一封简单邮件", "这是一封普通的SpringBoot测试邮件");
     }
 
     /**

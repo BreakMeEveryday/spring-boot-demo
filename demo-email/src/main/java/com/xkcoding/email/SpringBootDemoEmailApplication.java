@@ -1,5 +1,6 @@
 package com.xkcoding.email;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date Created in 2018-11-04 22:38
  */
 @SpringBootApplication
+@EnableEncryptableProperties
 public class SpringBootDemoEmailApplication {
 
     public static void main(String[] args) {

@@ -1,10 +1,16 @@
+# 启动报错
+# (1) https://blog.csdn.net/m0_51517236/article/details/124399585
 spring:
   mail:
-    host: smtp.mxhichina.com
-    port: 465
-    username: spring-boot-demo@xkcoding.com
-    # 使用 jasypt 加密密码，使用com.xkcoding.email.PasswordTest.testGeneratePassword 生成加密密码，替换 ENC(加密密码)  
-    password: ENC(OT0qGOpXrr1Iog1W+fjOiIDCJdBjHyhy)
+#    host: smtp.mxhichina.com # 换成网易邮箱
+    host: mail.163.com # 换成网易邮箱
+#    port: 465
+    port: 25
+#    username: spring-boot-demo@xkcoding.com # 网易邮箱的用户名
+    username: helloworldlyp@163.com # 网易邮箱的用户名
+    # 使用 jasypt 加密密码，使用com.xkcoding.email.PasswordTest.testGeneratePassword 生成加密密码，替换 ENC(加密密码)
+#    password: ENC(OT0qGOpXrr1Iog1W+fjOiIDCJdBjHyhy) # 网易邮箱的密码
+    password: ENC(9TeAStu/7vFeIjSXd3GrOCrjVf9ngiUkloqxbpxCepEl4/dOl74OtQ==) # 网易邮箱的密码
     protocol: smtp
     test-connection: true
     default-encoding: UTF-8
