@@ -1,10 +1,10 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /demo
 spring:
   session:
-    store-type: redis
+    store-type: redis # 通过redis实现的session存储
     redis:
       flush-mode: immediate
       namespace: "spring:session"

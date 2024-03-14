@@ -49,7 +49,7 @@ public class PageController {
         if (ObjectUtil.isNotNull(redirect) && ObjectUtil.equal(true, redirect)) {
             mv.addObject("message", "请先登录！");
         }
-        mv.setViewName("login");
+        mv.setViewName("login"); // 跳转login.html
         return mv;
     }
 
