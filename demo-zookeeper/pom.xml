@@ -39,6 +39,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!-- 什么是curator？ curator的作用是什么？ -->
         <!-- curator 版本4.1.0 对应 zookeeper 版本 3.5.x -->
         <!-- curator 与 zookeeper 版本对应关系：https://curator.apache.org/zk-compatibility.html -->
         <dependency>
