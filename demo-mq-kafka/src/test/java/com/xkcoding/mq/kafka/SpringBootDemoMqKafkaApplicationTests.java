@@ -16,6 +16,8 @@ public class SpringBootDemoMqKafkaApplicationTests {
 
     /**
      * 测试发送消息
+     * 接收消息直接启动SpringBootDemoMqKafkaApplication项目主类
+     * 要同时发送和接收消息，需要分不同端口启动多个项目
      */
     @Test
     public void testSend() {

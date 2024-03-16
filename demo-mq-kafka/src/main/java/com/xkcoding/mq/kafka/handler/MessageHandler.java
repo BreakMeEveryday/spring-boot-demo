@@ -19,6 +19,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MessageHandler {
 
+    /*
+    * 若配置正确，一旦发送了信息，这里会自动消费
+    * */
     @KafkaListener(topics = KafkaConsts.TOPIC_TEST, containerFactory = "ackContainerFactory")
     public void handleMessage(ConsumerRecord record, Acknowledgment acknowledgment) {
         try {

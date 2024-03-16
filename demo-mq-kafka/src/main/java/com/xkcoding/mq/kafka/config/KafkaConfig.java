@@ -20,8 +20,8 @@ import org.springframework.kafka.listener.ContainerProperties;
  * @date Created in 2019-01-07 14:49
  */
 @Configuration
-@EnableConfigurationProperties({KafkaProperties.class})
-@EnableKafka
+@EnableConfigurationProperties({KafkaProperties.class}) // 这里的kafkaProperties就是application.yml中的spring.kafka
+@EnableKafka // 开启kafka
 @AllArgsConstructor
 public class KafkaConfig {
     private final KafkaProperties kafkaProperties;
