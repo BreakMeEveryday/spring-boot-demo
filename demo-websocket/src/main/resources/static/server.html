@@ -23,11 +23,13 @@
     </style>
 </head>
 <body>
+<!--不需要反复建立连接，前端就能获得后端推送过来的服务器信息，这就是长连接的妙处所在-->
 <div id="app">
     <el-container>
         <el-header>
             <el-button @click="_initSockJs" type="primary" :disabled="isConnected">手动连接</el-button>
             <el-button @click="_destroySockJs" type="danger" :disabled="!isConnected">断开连接</el-button>
+<!--            <el-button @click="_destroySockJs" type="danger" :disabled="isConnected">断开连接</el-button>-->
         </el-header>
         <el-main>
             <el-row :gutter="20">
@@ -109,13 +111,37 @@
     </el-container>
 </div>
 </body>
+
+
+
+<!--
+一、socket.js
+  SockJS gives you a coherent, cross-browser, Javascript API which creates a low latency,
+  full duplex, cross-domain communication channel between the browser and the web server.
+  (1) spring-socket.js https://docs.spring.io/spring-framework/reference/web/websocket/fallback.html
+  (2) 使用SockJS和StompJS实现WebSocket订阅服务 https://blog.csdn.net/xjtarzan/article/details/121125054
+  (3) Github代码与文档 https://github.com/sockjs/sockjs-client
+二、stomp.js
+  This library provides a STOMP client for Web browser (using Web Sockets)，给浏览器提供了一个STOMP客户端。
+  STOMP是一种协议，
+  (1) stomp.js官网 https://stomp-js.github.io/
+  (2) Stomp JS in 5 minutes https://medium.com/@debanjanamaitra/stomp-js-in-5-minutes-30ebfb9d6e9a
+  (3) Stomp Over Websocket文档 https://segmentfault.com/a/1190000006617344
+  (4) STOMP Over WebSocket https://jmesnil.net/stomp-websocket/doc/
+-->
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.11/index.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
 <script>
-    const wsHost = "http://localhost:8080/demo/notification";
+    /**
+     * 不是一个常规HTTP RESTful API的路由。
+     * 实际上是在尝试升级这个HTTP连接为WebSocket连接。在这个过程中，服务器端需要正确配置和处理WebSocket握手请求，而不是提供一个名为"notification"的HTTP接口。
+     * 如果你在服务端（例如Spring Boot应用）已经正确配置了WebSocket支持，并且有一个监听"/demo/notification"路径的WebSocket endpoint或者Handler，那么即使在Controller中没有对应的HTTP接口，客户端也能成功建立WebSocket连接并进行双向通信。
+     * 请看WebSocketConfig.java
+     * */
+    const wsHost = "http://localhost:8082/demo/notification"; // 这里有问题，但为什么/demo/notification可以直接写，controller里没有写这个接口的
     const wsTopic = "/topic/server";
 
     const app = new Vue({
@@ -143,8 +169,8 @@
             },
             _initSockJs() {
                 this._getServerInfo();
-                this.socket = new SockJS(wsHost);
-                this.stompClient = Stomp.over(this.socket);
+                this.socket = new SockJS(wsHost); // 来自socket.js
+                this.stompClient = Stomp.over(this.socket); // 来自stomp.js。  Stomp客户端使用了socket，也就是说Client拿着socket与后端的Server建立了连接, 如果使用原生的Websockets就使用Stomp.client(url)，如果需要使用其他类型的Websocket（例如由SockJS包装的Websocket）就使用Stomp.over(ws)。
 
                 this.stompClient.connect({}, (frame) => {
                     console.log('websocket连接成功:' + frame);
@@ -160,8 +186,11 @@
             _destroySockJs() {
                 if (this.stompClient != null) {
                     this.stompClient.disconnect();
-                    this.socket.onclose;
-                    this.socket.close();
+                    // this.socket.onclose; //onclose是一个可监听事件，应该执行一个回调函数
+                    this.socket.onclose = function (){
+                      console.log('websocket连接关闭！');
+                    };
+                    this.socket.close(); // 那么close的时候会触发onclose事件
                     this.stompClient = {};
                     this.socket = {};
                     this.isConnected = false;
