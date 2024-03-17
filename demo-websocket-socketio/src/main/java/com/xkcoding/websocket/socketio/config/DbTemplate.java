@@ -17,8 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date Created in 2018-12-18 19:12
  */
 @Component
-public class DbTemplate {
+public class DbTemplate { // Template是模版的意思，这里还不是真正的DB实现
     /**
+     * 用HashMap模拟存储了用户关系
      * 模拟数据库存储 user_id <-> session_id 的关系
      */
     public static final ConcurrentHashMap<String, UUID> DB = new ConcurrentHashMap<>();

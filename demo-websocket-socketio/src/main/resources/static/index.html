@@ -41,16 +41,24 @@
 
     </style>
 
+    <!--
+    一、socket.io.js
+      (1) 官网 https://socket.io/
+    -->
     <script src="js/socket.io/socket.io.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/jquery-1.10.1.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script> <!--layer.js可以直接弹窗提示表情，这个框架有点意思-->
     <script>
         const token = 'user' + Math.floor((Math.random() * 1000) + 1);
-        const url = `http://127.0.0.1:8081?token=${token}`;
-        const socket = io.connect(url);
-        socket.on('connect', function () {
+        const url = `http://127.0.0.1:8081?token=${token}`; //这里的端口是写死的
+        const socket = io.connect(url); // 走到了后端ServerConfig的方法里
+        /*
+        * 经查阅官网，socket.on还可以绑定以下事件
+        * (1)
+        * */
+        socket.on('connect', function () { // WebSocket Client端的事件监听器，connect连接成功建立时执行回调函数，为connect注册了一个回调function
             output(`<span class="connect-msg">系统通知: ${token}成功连接至websocket服务器</span>`);
         });
 
@@ -98,7 +106,7 @@
         function sendJoin() {
             let joinRequest = {
                 userId: token,
-                groupId: "666"
+                groupId: "666" // 这里的groupId是决定了哪些人在同一个room里聊天的
 
             };
             socket.emit('join', joinRequest);
@@ -141,8 +149,8 @@
             $('#msg').val('');
 
             let singleRequest = {
-                fromUid: token,
-                toUid: toUserId,
+                fromUid: token, // 自己的id
+                toUid: toUserId, // 要发送给谁的id
                 message: message
             };
             socket.emit('chat', singleRequest, function (data) {
@@ -158,7 +166,7 @@
         function output(message) {
             let currentTime = "<span class='time'>" + moment().format('YYYY-MM-DD HH:mm:ss.SSS') + "</span>";
             let element = $("<div>" + currentTime + " " + message + "</div>");
-            $('#console').prepend(element);
+            $('#console').prepend(element); // 将message内容，添加到id为console的div中
         }
 
     </script>
@@ -166,8 +174,11 @@
 <body>
 <h1>spring-boot-demo-websocket-socketio</h1>
 <br/>
+
+<!--中间的聊天窗口console-->
 <div id="console" class="well">
 </div>
+
 <form class="well form-inline" onsubmit="return false;">
     <input id="msg" class="input-xlarge" type="text" placeholder="随便输点啥"/>
     <input id="to" class="input-xlarge" type="text" placeholder="私聊发给谁"/>

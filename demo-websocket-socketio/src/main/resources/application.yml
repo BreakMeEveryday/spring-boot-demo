@@ -1,8 +1,10 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /demo
-ws:
+ws: # WebSocket服务相关配置
   server:
+    # WebSocket服务将运行在本地主机的8081端口上，等待来自客户端的WebSocket连接请求。
     port: 8081
+    # WebSocket服务器绑定的主机名或IP地址为localhost
     host: localhost
